@@ -1,6 +1,7 @@
-import os, sys, re
-import subprocess32 as subprocess
-import time
-
-time.sleep(1)
-subprocess.call(['python3', 'restart.py'])
+a = ("This", "Is")
+type(a)
+b = ('Loads', 'Of', 'Fun', ':-)')
+type(b)
+c = a + b
+print(c)
+print(type(a))
