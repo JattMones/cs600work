@@ -11,36 +11,40 @@ from kivy.lang import Builder
 from kivy.uix.textinput import TextInput
 import os, sys
 import subprocess32 as subprocess
-
+import time
 Config.set('graphics', 'resizable', False)
 def callback(self):
     App.get_running_app().stop()
-    MyApp2().run()
+    Macros_Menu().run()
 
 def callback2(self):
     App.get_running_app().stop()
-    MyApp().run()
+    AM().run()
 def callback3(self):
     App.get_running_app().stop()
-    MyAppWork().run()
+    Work_Macros().run()
 
 def callback4(self):
     App.get_running_app().stop()
-    MyAppGaming().run()
+    Gaming_Macros().run()
 def callback5(self):
     App.get_running_app().stop()
-    MyAppRecord().run()
-
+    Record_Macro().run()
 def callback6(self):
     App.get_running_app().stop()
-    MyAppError().run()
+    Error_Help().run()
 def callback7(self):
     App.get_running_app().stop()
-    MyAppCustom().run()
+    Custom_Macro().run()
 def callback8(self):
     subprocess.call(['python3', 'systest.py'])
 def on_text(instance, value):
     print('The widget', instance, 'have:', value)
+    global textIn
+    textIn = str(value)
+def getValue(self):
+    print(textIn)
+    callback(self)
 def on_enter(instance, value):
     print('User pressed enter in', instance)
 class pressMe(GridLayout):
@@ -53,24 +57,22 @@ class workPage(GridLayout):
     def __init__(self, **kwargs):
         super(workPage, self).__init__(**kwargs)
         self.cols =  1
+        self.add_widget(Button(text='All Work Macros',on_press = callback8, on_release = callback))
         self.add_widget(Label(text='Temp. Macros'))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
-        self.add_widget(Button(text='Saved Macros',on_press = callback8, on_release = callback,background_color = (0,0,0,1)))
-        self.add_widget(Button(text='Suggested Macros',on_press = callback8, on_release = callback,background_color = (0,0,0,1)))
         self.add_widget(Button(text='Back',on_press = callback,background_color = (0,0,0,1)))
         Window.size = (175, 175)
 class gamingPage(GridLayout):
     def __init__(self, **kwargs):
         super(gamingPage, self).__init__(**kwargs)
         self.cols =  1
+        self.add_widget(Button(text='All Game Macros',on_press = callback8, on_release = callback))
         self.add_widget(Label(text='Temp. Macros'))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
         self.add_widget(Button(text='Custom',on_press = callback8, on_release = callback))
-        self.add_widget(Button(text='Saved Macros',on_press = callback8, on_release = callback,background_color = (0,0,0,1)))
-        self.add_widget(Button(text='Suggested Macros',on_press = callback8, on_release = callback,background_color = (0,0,0,1)))
         self.add_widget(Button(text='Back',on_press = callback,background_color = (0,0,0,1)))
         Window.size = (175, 175)
 class recordPage(GridLayout):
@@ -85,8 +87,10 @@ class errorPage(GridLayout):
     def __init__(self, **kwargs):
         super(errorPage, self).__init__(**kwargs)
         self.cols =  2
-        self.add_widget(Button(text='Send Error', on_press = callback))
-        self.add_widget(TextInput(on_text_validate=on_enter, multiline=True, size_hint_x = None, width = 375))
+        usr_input = TextInput(multiline=True, size_hint_x = None, width = 375)
+        usr_input.bind(text=on_text)
+        self.add_widget(Button(text='Send Error', on_press = getValue))
+        self.add_widget(usr_input)
         self.add_widget(Button(text='Help', on_press = callback))
         self.add_widget(Button(text='Back',on_press = callback,background_color = (0,0,0,1), size_hint_x = None, width = 375))
         Window.size = (500, 175)
@@ -118,29 +122,29 @@ class pressMe2(GridLayout):
         super(pressMe2, self).__init__(**kwargs)
         self.cols =  1
         self.add_widget(btn1)
-class MyApp(App):
+class AM(App):
     def build(self):
         return pressMe()
-class MyApp2(App):
+class Macros_Menu(App):
     def build(self):
         return menu()
-class MyAppWork(App):
+class Work_Macros(App):
     def build(self):
         return workPage()
-class MyAppGaming(App):
+class Gaming_Macros(App):
     def build(self):
         return gamingPage()
-class MyAppRecord(App):
+class Record_Macro(App):
     def build(self):
         return recordPage()
-class MyAppError(App):
+class Error_Help(App):
     def build(self):
         return errorPage()
-class MyAppCustom(App):
+class Custom_Macro(App):
     def build(self):
         return customPage()
 def Main():
-    MyApp().run()
+    AM().run()
 
 if __name__ == "__main__":
     Main()
