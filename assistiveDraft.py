@@ -44,7 +44,8 @@ def callback7(self):
     App.get_running_app().stop()
     Custom_Macro().run()
 def callback8(self):
-    subprocess.call(['python3', 'systest.py'])
+    subprocess.call('cd ~', shell = True)
+    subprocess.call('~/.local/bin/autokey-run -s clickGetWindow', shell = True)
 def on_text(instance, value):
     print('The widget', instance, 'have:', value)
     global textIn
