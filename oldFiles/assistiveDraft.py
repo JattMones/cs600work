@@ -10,13 +10,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.uix.textinput import TextInput
 import os, sys
-import subprocess32 as subprocess
+#import subprocess32 as subprocess
+import subprocess
 import time
 import os.path
 fileRef = sys.argv[0]
 path = os.path.abspath(os.path.dirname(fileRef))
 path = path[:-4]
-path = path +"/kivy/" +"errorLog.txt"
+#path = path +"/kivy/" +"errorLog.txt"
+path = path +"work\\errorLog.txt"
 if(not(os.path.exists(path))):
     data = open(path,"x")
 Config.set('graphics', 'resizable', False)
